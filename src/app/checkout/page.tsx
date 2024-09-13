@@ -47,13 +47,8 @@ const Page = () => {
     }
 
     useEffect(() => {
-        if (products.length) {
-            products.map((product) => {
-                setTotalPricing((prev) => prev += Number(product?.quantity || 1 * product.price))
-            })
-        } else {
-            setTotalPricing(0)
-        }
+        const total = products.reduce((acc, product) => acc + (product.price * (product?.quantity || 1)), 0)
+        setTotalPricing(total)
     }, [products])
 
     useEffect(() => {
@@ -72,7 +67,7 @@ const Page = () => {
                         key={index}
                         index={index}
                         setProducts={setProducts}
-                        product={product} />)
+                        product={product} products={products} />)
                         :
                         <div className=''>
                             <div className='text-center'>No products in cart</div>
