@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/rendered/navbar";
+import { Toaster } from "@/components/ui/toaster"
+import Cart from "@/components/rendered/cart";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,6 +33,8 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Toaster />
+        <Cart />
       </body>
     </html>
   );

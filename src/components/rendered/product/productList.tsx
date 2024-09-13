@@ -11,7 +11,7 @@ export interface Product {
     thumbnail: string;
 }
 
-const ProductList: React.FC = () => {
+const ProductList: React.FC = ({ limit }: { limit?: number }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -31,6 +31,7 @@ const ProductList: React.FC = () => {
         fetchProducts();
     }, []);
 
+    console.log(loading);
     // if (loading) {
     //     return (
     //         <div className="flex justify-center items-center min-h-screen">
@@ -49,7 +50,9 @@ const ProductList: React.FC = () => {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-            {products?.map(product => (
+            {length ? products?.map(product => (
+                <ProductCard product={product} key={product.id} />
+            )) : products.slice(0, limit)?.map(product => (
                 <ProductCard product={product} key={product.id} />
             ))}
         </div>
