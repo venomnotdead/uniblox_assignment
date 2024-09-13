@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
-import { addProductToCart } from "@/lib/dataFunctions";
+import { addProductToCart,removeProductFromCart } from "@/lib/dataFunctions";
 
 export default function Product() {
     const params = useParams();
@@ -58,7 +58,7 @@ export default function Product() {
                                 toast({
                                     title: `${productData.title} added to your cart`,
                                     action: (
-                                        <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+                                        <ToastAction onClick={() => removeProductFromCart(productData.id)} altText="Goto schedule to undo">Undo</ToastAction>
                                     ),
                                 })
                             }}>Add to cart</Button>

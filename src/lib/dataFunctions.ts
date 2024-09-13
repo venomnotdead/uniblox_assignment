@@ -1,3 +1,4 @@
+import { Product } from "@/components/rendered/product/productList";
 import axios from "axios";
 export const getSingleProduct = async (id: string) => {
   try {
@@ -19,14 +20,34 @@ export const getProductList = async () => {
   }
 };
 
-export const addProductToCart = (product) => {
+export const addProductToCart = (product: Product) => {
   const data = localStorage.getItem("products");
   if (data) {
     const products = JSON.parse(data);
-    if (products.some((p) => p.id == product.id)) return;
+    if (products.some((p: Product) => p.id == product.id)) return;
     products.push(product);
     localStorage.setItem("products", JSON.stringify(products));
   } else {
     localStorage.setItem("products", JSON.stringify([product]));
+  }
+};
+
+export const getCheckoutProduct = () => {
+  const data = localStorage.getItem("products");
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+};
+
+export const removeProductFromCart = (id: number) => {
+  const data = localStorage.getItem("products");
+  if (data) {
+    const products = JSON.parse(data);
+    localStorage.setItem(
+      "products",
+      JSON.stringify(products.filter((p: Product) => p.id != id))
+    );
   }
 };

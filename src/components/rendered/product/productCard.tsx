@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
-import { addProductToCart } from '@/lib/dataFunctions';
+import { addProductToCart, removeProductFromCart } from '@/lib/dataFunctions';
 
 const ProductCard = ({ product }: { product: Product }) => {
     const router = useRouter()
@@ -37,7 +37,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                                     toast({
                                         title: `${product.title} added to your cart`,
                                         action: (
-                                            <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+                                            <ToastAction onClick={() => removeProductFromCart(product.id)} altText="Goto schedule to undo">Undo</ToastAction>
                                         ),
                                     })
                                 }}>

@@ -9,6 +9,7 @@ export interface Product {
     title: string;
     price: number;
     thumbnail: string;
+    quantity?: number;
 }
 
 const ProductList: React.FC = ({ limit }: { limit?: number }) => {
