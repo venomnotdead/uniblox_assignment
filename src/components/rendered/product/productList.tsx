@@ -1,18 +1,60 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { Spinner } from 'shadcn'; // Adjust the import path if needed, or use a native spinner
 import ProductCard from './productCard';
+
+interface Review {
+    rating: number; 
+    comment: string;
+    date: string;
+    reviewerName: string;
+    reviewerEmail: string;
+}
+
+interface Dimensions {
+    width: number;
+    height: number;
+    depth: number;
+}
+
+interface Meta {
+    createdAt: string;
+    updatedAt: string;
+    barcode: string;
+    qrCode: string;
+}
 
 export interface Product {
     id: number;
     title: string;
+    description: string;
+    category: string;
     price: number;
+    discountPercentage: number;
+    rating: number;
+    quantity?: number | string;
+    stock: number;
+    tags: string[];
+    brand: string;
+    sku: string;
+    weight: number;
+    dimensions: Dimensions;
+    warrantyInformation: string;
+    shippingInformation: string;
+    availabilityStatus: string;
+    reviews: Review[];
+    returnPolicy: string;
+    minimumOrderQuantity: number;
+    meta: Meta;
+    images: string[];
     thumbnail: string;
-    quantity?: number;
 }
 
-const ProductList: React.FC = ({ limit }: { limit?: number }) => {
+interface ProductListProps {
+    limit?: number;
+}
+
+const ProductList: React.FC<ProductListProps> = ({ limit }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);

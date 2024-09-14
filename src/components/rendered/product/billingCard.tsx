@@ -1,6 +1,7 @@
 import { dateFormatter } from '@/lib/common'
 import React, { useEffect, useState } from 'react'
 import CheckoutCard from './checkoutCard'
+import { Product } from './productList'
 
 const BillingCard = ({ billings }) => {
     const [total, setTotal] = useState(0)
@@ -21,8 +22,8 @@ const BillingCard = ({ billings }) => {
 
             {billings.products.length > 0 ? (
                 <div className="space-y-4 mb-4">
-                    {billings.products.map((product, i) => (
-                        <CheckoutCard key={i} product={product} editable={false} />
+                    {billings.products.map((product: Product, i: number) => (
+                        <CheckoutCard key={i} index={i} product={product} editable={false} />
                     ))}
                 </div>
             ) : (

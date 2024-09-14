@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ChangeEvent } from 'react'
 import { Icon } from '@iconify/react'
 import BillingCard from '@/components/rendered/product/billingCard'
 import {
@@ -32,7 +32,7 @@ const Page = () => {
         }
     }, [])
 
-    const handleChange = (e: Event) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         switch (name) {
             case "name":
@@ -79,21 +79,21 @@ const Page = () => {
     return (
         <>
             {
-                !authenticated ?<div className="p-4">
-                <div className="bg-white p-6 shadow-lg rounded-lg mt-6 max-w-sm mx-auto">
-                  <div className="text-lg font-semibold mb-4">Enter PIN</div>
-                  <InputOTP maxLength={6} onChange={(e) => setPassword(Number(e))}>
-                    <InputOTPGroup className="flex space-x-2">
-                      <InputOTPSlot index={0} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                      <InputOTPSlot index={1} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                      <InputOTPSlot index={2} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                      <InputOTPSlot index={3} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                      <InputOTPSlot index={4} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                      <InputOTPSlot index={5} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </InputOTPGroup>
-                  </InputOTP>
+                !authenticated ? <div className="p-4">
+                    <div className="bg-white p-6 shadow-lg rounded-lg mt-6 max-w-sm mx-auto">
+                        <div className="text-lg font-semibold mb-4">Enter PIN</div>
+                        <InputOTP maxLength={6} onChange={(e) => setPassword(Number(e))}>
+                            <InputOTPGroup className="flex space-x-2">
+                                <InputOTPSlot index={0} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <InputOTPSlot index={1} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <InputOTPSlot index={2} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <InputOTPSlot index={3} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <InputOTPSlot index={4} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                <InputOTPSlot index={5} className="w-12 h-12 border border-gray-300 rounded-lg text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            </InputOTPGroup>
+                        </InputOTP>
+                    </div>
                 </div>
-              </div>
                     :
 
                     <div>

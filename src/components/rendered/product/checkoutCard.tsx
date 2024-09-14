@@ -1,13 +1,13 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { Product } from './productList'
 import { Input } from '@/components/ui/input'
 import { removeProductFromCart } from '@/lib/dataFunctions'
 
-const CheckoutCard = ({ product, index, setProducts, products, editable }: { editable?: boolean, products: Product[], product: Product, index: number, setProducts: any }) => {
-    const handleQuantityChange = (e: Event) => {
+const CheckoutCard = ({ product, index, setProducts, products, editable }: { editable?: boolean, products?: Product[], product: Product, index: number, setProducts: React.Dispatch<React.SetStateAction<Product[]>> }) => {
+    const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
         const quantity = e?.target?.value;
-        if (quantity > 0) {
+        if (Number(quantity) > 0) {
             setProducts((prevProducts: Product[]) => {
                 const newProducts = [...prevProducts];
                 newProducts[index].quantity = quantity;
@@ -18,8 +18,8 @@ const CheckoutCard = ({ product, index, setProducts, products, editable }: { edi
 
     const handleProductRemove = () => {
         removeProductFromCart(product.id)
-        const newProducts = products.filter((p) => p.id != product.id)
-        setProducts(newProducts)
+        const newProducts = products?.filter((p) => p.id != product.id)
+        setProducts(newProducts || [])
     }
 
     return (
@@ -46,7 +46,7 @@ const CheckoutCard = ({ product, index, setProducts, products, editable }: { edi
                     <div onClick={() => handleProductRemove()}>remove</div>
                 }
                 <p className="text-xl font-bold text-gray-900">
-                    ${(product.price * (product?.quantity || 1)).toFixed(2)}
+                    ${(product.price * (Number(product.quantity) || 1)).toFixed(2)}
                 </p>
             </div>
         </div>

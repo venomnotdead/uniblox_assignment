@@ -1,4 +1,4 @@
-export const dateFormatter = (timeStamp) => {
+export const dateFormatter = (timeStamp: string | number) => {
   const date = new Date(timeStamp);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;

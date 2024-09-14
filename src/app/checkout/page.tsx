@@ -13,15 +13,12 @@ const Page = () => {
     const [products, setProducts] = useState<Product[]>([])
     const [totalPricing, setTotalPricing] = useState<number>(0)
     const [discount, setTotalDiscount] = useState<number>(0)
-    const [finalAmount, setFinalAmount] = useState<number>(0)
-    const [couponCode, setCouponCode] = useState('');
     const [couponApplied, setCouponApplied] = useState(false);
     const removeCoupon = () => {
         setCouponApplied(false)
-        setCouponCode('');
         setTotalDiscount(0);
     }
-    const applyCoupon = (valid: string) => {
+    const applyCoupon = (valid: boolean) => {
         if (valid) {
             setTotalDiscount(10)
             return 10.00;
@@ -54,13 +51,10 @@ const Page = () => {
     }
 
     useEffect(() => {
-        const total = products.reduce((acc, product) => acc + (product.price * (product?.quantity || 1)), 0)
+        const total = products.reduce((acc, product) => acc + (product.price * (Number(product.quantity) || 1)), 0)
         setTotalPricing(total)
     }, [products])
 
-    useEffect(() => {
-        setFinalAmount(totalPricing - discount)
-    }, [totalPricing, discount])
     return (
         <div>
             <h1 className='text-3xl font-bold text-gray-900 mb-4'>

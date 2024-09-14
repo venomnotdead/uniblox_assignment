@@ -7,13 +7,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
-import { addProductToCart,removeProductFromCart } from "@/lib/dataFunctions";
+import { addProductToCart, removeProductFromCart } from "@/lib/dataFunctions";
 
 export default function Product() {
     const params = useParams();
     const { productId } = params;
     const { toast } = useToast()
-    const [productData, setProductData] = useState<product | null>(null)
+    const [productData, setProductData] = useState<product>()
     const [currentImage, setCurrentImage] = useState<string>("")
 
     useEffect(() => {
@@ -29,13 +29,13 @@ export default function Product() {
                     <div className="w-full md:w-1/2">
                         <Image
                             src={currentImage}
-                            alt={productData?.title}
+                            alt={productData?.title || 'product'}
                             width={400}
                             height={400}
                             className="w-full h-auto object-cover rounded-lg"
                         />
                         <div className="mt-4 flex space-x-4">
-                            {productData?.images?.map((img, index) => (
+                            {productData?.images?.map((img: string, index: number) => (
                                 <Image
                                     key={index}
                                     src={img}
@@ -54,13 +54,15 @@ export default function Product() {
                         <p className="text-xl font-semibold mb-2">Price: ${productData?.price?.toFixed(2)}</p>
                         <div className="m-2">
                             <Button onClick={() => {
-                                addProductToCart(productData)
-                                toast({
-                                    title: `${productData.title} added to your cart`,
-                                    action: (
-                                        <ToastAction onClick={() => removeProductFromCart(productData.id)} altText="Goto schedule to undo">Undo</ToastAction>
-                                    ),
-                                })
+                                if (productData?.id) {
+                                    addProductToCart(productData)
+                                    toast({
+                                        title: `${productData?.title} added to your cart`,
+                                        action: (
+                                            <ToastAction onClick={() => removeProductFromCart(productData?.id)} altText="Goto schedule to undo">Undo</ToastAction>
+                                        ),
+                                    })
+                                }
                             }}>Add to cart</Button>
                         </div>
                         <p className="text-md mb-2">Brand: {productData?.brand}</p>

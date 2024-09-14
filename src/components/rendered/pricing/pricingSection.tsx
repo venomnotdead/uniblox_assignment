@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 
-const PricingSection = ({ totalPricing, initialDiscount, onApplyCoupon, onRemoveCoupon,setCouponApplied }) => {
+export type PricingSectionType = {
+    totalPricing?: number;
+    initialDiscount?: number;
+    onApplyCoupon: (couponCode: boolean) => number;
+    onRemoveCoupon: () => void;
+    setCouponApplied: (applied: boolean) => void;
+};
+
+const PricingSection: React.FC<PricingSectionType> = ({
+    totalPricing = 0,
+    initialDiscount = 0,
+    onApplyCoupon,
+    onRemoveCoupon,
+    setCouponApplied
+}) => {
     const [couponCode, setCouponCode] = useState('');
     const [discount, setDiscount] = useState(initialDiscount);
 
