@@ -7,7 +7,6 @@ import BillingCard from '@/components/rendered/product/billingCard'
 import {
     InputOTP,
     InputOTPGroup,
-    InputOTPSeparator,
     InputOTPSlot,
 } from "@/components/ui/input-otp"
 
