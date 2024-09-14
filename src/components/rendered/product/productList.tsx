@@ -51,7 +51,7 @@ const ProductList: React.FC = ({ limit }: { limit?: number }) => {
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-            {length ? products?.map(product => (
+            {limit ? products?.map(product => (
                 <ProductCard product={product} key={product.id} />
             )) : products.slice(0, limit)?.map(product => (
                 <ProductCard product={product} key={product.id} />
