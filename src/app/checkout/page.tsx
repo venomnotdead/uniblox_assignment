@@ -23,6 +23,7 @@ const Page = () => {
     }
     const applyCoupon = (valid: string) => {
         if (valid) {
+            setTotalDiscount(10)
             return 10.00;
         }
         return 0;
@@ -34,6 +35,8 @@ const Page = () => {
 
     const handlePurchase = () => {
         if (!products.length) return;
+        // console.log(products);
+        // return
         const pastPurchase = localStorage.getItem('purchase')
         if (pastPurchase) {
             const purchase = JSON.parse(pastPurchase)

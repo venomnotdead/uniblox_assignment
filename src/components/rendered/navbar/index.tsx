@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
                     <div className="space-x-4">
                         {
                             routes.map((route, index) => {
-                                return (<Link href="/" key={index} className="text-white hover:text-gray-300">
+                                return (<Link href={route.path} key={index} className="text-white hover:text-gray-300">
                                     {route.name}
                                 </Link>)
                             })
@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
                 <div className="space-x-4">
                     {
                         routes.map((route, index) => {
-                            return (<Link href="/" key={index} className="text-white hover:text-gray-300">
+                            return (<Link href={route.path} key={index} className="text-white hover:text-gray-300">
                                 {route.name}
                             </Link>)
                         })
