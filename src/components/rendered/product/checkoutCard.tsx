@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { removeProductFromCart } from '@/lib/dataFunctions'
 
 const CheckoutCard = ({ product, index, setProducts, products, editable }: { editable?: boolean, products: Product[], product: Product, index: number, setProducts: any }) => {
-    const handleQuantitiyChange = (e: Event) => {
+    const handleQuantityChange = (e: Event) => {
         const quantity = e?.target?.value;
         if (quantity > 0) {
             setProducts((prevProducts: Product[]) => {
@@ -38,7 +38,7 @@ const CheckoutCard = ({ product, index, setProducts, products, editable }: { edi
                 </div>
                 <p className="text-gray-700">Price: ${product.price.toFixed(2)}</p>
                 <p className="text-gray-700">Quantity:
-                    {editable ? <Input onChange={(e) => handleQuantitiyChange(e)} type='number' value={product.quantity || 1} /> : product.quantity || 1} </p>
+                    {editable ? <Input onChange={(e) => handleQuantityChange(e)} type='number' value={product.quantity || 1} /> : product.quantity || 1} </p>
             </div>
             <div className="text-right">
                 {
