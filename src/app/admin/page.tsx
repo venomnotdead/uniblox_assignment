@@ -18,7 +18,7 @@ const Page = () => {
     const [savedCoupon, setSavedCoupon] = useState(false)
     const [billingList, setBillingList] = useState([])
     const [pass, setPassword] = useState<number | null>()
-    const [authenticated, setAuthenticated] = useState<boolean>(false)
+    const [authenticated, setAuthenticated] = useState<boolean>(true)
 
     useEffect(() => {
         const preCoupon = localStorage.getItem('coupon')
@@ -138,9 +138,8 @@ const Page = () => {
                             <div>
                                 {
                                     billingList.map((billings, index) => {
-                                        console.log(billings);
                                         return <BillingCard key={index} billings={billings} />
-                                    })
+                                    }).reverse()
                                 }
                             </div>
                         </div>

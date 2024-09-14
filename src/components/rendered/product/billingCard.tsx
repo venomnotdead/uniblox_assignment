@@ -5,15 +5,17 @@ import CheckoutCard from './checkoutCard'
 const BillingCard = ({ billings }) => {
     const [total, setTotal] = useState(0)
     useEffect(() => {
-        if (billings.products) {
-            const total = billings.products.reduce((acc, product) => acc + product.price * (product?.quantity || 1), 0)
-            setTotal(total)
+        if (billings && billings.products) {
+            // Calculate total by reducing over the products array
+            const totalAmount = billings.products.reduce((acc, product) => {
+                return acc + (product.price * (product.quantity || 1));
+            }, 0);
+            setTotal(totalAmount);
         }
-    }, [billings.products])
+    }, [billings]);
     return (
         <div className='bg-white rounded-xl p-2 shadow-lg mb-2'>
             <div>{dateFormatter(billings.date)}</div>
-            <div>Discount : {billings.discount}</div>
             {
                 billings.products.map((product, i) => {
                     return (
@@ -21,7 +23,8 @@ const BillingCard = ({ billings }) => {
                     )
                 })
             }
-            {/* <div>Total : {total}</div> */}
+            <div>Discount : {billings.discount}</div>
+            <div>Total : {total}</div>
         </div>
     )
 }
