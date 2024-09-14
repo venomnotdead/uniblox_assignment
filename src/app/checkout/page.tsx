@@ -15,13 +15,14 @@ const Page = () => {
     const [discount, setTotalDiscount] = useState<number>(0)
     const [finalAmount, setFinalAmount] = useState<number>(0)
     const [couponCode, setCouponCode] = useState('');
+    const [couponApplied, setCouponApplied] = useState(false);
     const removeCoupon = () => {
+        setCouponApplied(false)
         setCouponCode('');
         setTotalDiscount(0);
     }
-    const applyCoupon = (couponCode: string) => {
-        // Example logic for coupon application
-        if (couponCode === 'SAVE10') {
+    const applyCoupon = (valid: string) => {
+        if (valid) {
             return 10.00;
         }
         return 0;
@@ -41,6 +42,9 @@ const Page = () => {
         } else {
             const purchase = [{ products: products, discount, date: new Date().getTime() }]
             localStorage.setItem('purchase', JSON.stringify(purchase))
+        }
+        if (couponApplied) {
+            localStorage.removeItem('coupon')
         }
         localStorage.removeItem('products')
         router.push('/')
@@ -66,6 +70,7 @@ const Page = () => {
                     products.length ? products.map((product, index) => <CheckoutCard
                         key={index}
                         index={index}
+                        editable={true}
                         setProducts={setProducts}
                         product={product} products={products} />)
                         :
@@ -82,6 +87,7 @@ const Page = () => {
                 initialDiscount={discount}
                 onApplyCoupon={applyCoupon}
                 onRemoveCoupon={removeCoupon}
+                setCouponApplied={setCouponApplied}
             />
             <div className='p-2 flex'>
                 <Button className='w-1/2 m-1 rounded-xl' variant={'outline'} onClick={() => router.back()}>Cancel</Button>

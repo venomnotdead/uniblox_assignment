@@ -2,6 +2,8 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import React, { useEffect, useState } from 'react'
+import { Icon } from '@iconify/react'
+import BillingCard from '@/components/rendered/product/billingCard'
 
 const Page = () => {
     const [coupon, setCoupon] = useState({
@@ -9,9 +11,14 @@ const Page = () => {
         quantity: 0
     })
     const [savedCoupon, setSavedCoupon] = useState(false)
+    const [billingList, setBillingList] = useState([])
 
     useEffect(() => {
         const preCoupon = localStorage.getItem('coupon')
+        const purchase = localStorage.getItem('purchase')
+        if (purchase) {
+            setBillingList(JSON.parse(purchase))
+        }
         if (preCoupon) {
             setCoupon(JSON.parse(preCoupon))
             setSavedCoupon(true)
@@ -64,7 +71,9 @@ const Page = () => {
                                     <div className='mr-2'>
                                         {coupon.quantity}
                                     </div>
-                                    <div onClick={() => { handleCouponDelete() }}>DELETE</div>
+                                    <div onClick={() => { handleCouponDelete() }}>
+                                        <Icon icon="material-symbols:delete" width="24" height="24" />
+                                    </div>
                                 </div>
                             </div>
                         </div> :
@@ -86,6 +95,14 @@ const Page = () => {
             <div>
                 <div>
                     List
+                </div>
+                <div>
+                    {
+                        billingList.map((billings, index) => {
+                            console.log(billings);
+                            return <BillingCard key={index} billings={billings} />
+                        })
+                    }
                 </div>
             </div>
         </div>

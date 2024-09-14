@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
 
-const PricingSection = ({ totalPricing, initialDiscount, onApplyCoupon, onRemoveCoupon }) => {
+const PricingSection = ({ totalPricing, initialDiscount, onApplyCoupon, onRemoveCoupon,setCouponApplied }) => {
     const [couponCode, setCouponCode] = useState('');
     const [discount, setDiscount] = useState(initialDiscount);
 
     const handleApplyCoupon = () => {
-        // Call the parent function to apply the coupon
-        const newDiscount = onApplyCoupon(couponCode);
-        setDiscount(newDiscount);
+        const coupon = localStorage.getItem('coupon')
+        const billingProducts = localStorage.getItem('purchase')
+        if (coupon && billingProducts) {
+            const parsedCode = JSON.parse(coupon)
+            const parsedProducts = JSON.parse(billingProducts)
+            console.log(parsedProducts.length);
+            if (parsedProducts?.length % parsedCode.quantity >= 0) {
+                setCouponCode(parsedCode.name)
+                const newDiscount = onApplyCoupon(true);
+                setDiscount(newDiscount);
+                setCouponApplied(true)
+            }
+            else {
+                alert("Not enough orders to place the order")
+            }
+        }
+        else if (!coupon) {
+            alert("Coupon code not available")
+        }
+        else {
+            alert("Not enough orders to place the order")
+        }
     };
 
     const handleRemoveCoupon = () => {
@@ -28,7 +47,7 @@ const PricingSection = ({ totalPricing, initialDiscount, onApplyCoupon, onRemove
                         id="coupon"
                         type="text"
                         value={couponCode}
-                        onChange={(e) => setCouponCode(e.target.value)}
+                        disabled={true}
                         className="border border-gray-300 rounded-lg p-2 flex-1 mr-2"
                         placeholder="Coupon Code"
                     />
@@ -43,7 +62,7 @@ const PricingSection = ({ totalPricing, initialDiscount, onApplyCoupon, onRemove
                             onClick={handleApplyCoupon}
                             className="bg-blue-500 text-white px-4 py-2 rounded-lg"
                         >
-                            Apply
+                            Request
                         </button>}
                 </div>
             </div>
