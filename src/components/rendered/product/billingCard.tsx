@@ -14,18 +14,32 @@ const BillingCard = ({ billings }) => {
         }
     }, [billings]);
     return (
-        <div className='bg-white rounded-xl p-2 shadow-lg mb-2'>
-            <div>{dateFormatter(billings.date)}</div>
-            {
-                billings.products.map((product, i) => {
-                    return (
+        <div className="bg-white rounded-xl p-6 shadow-lg mb-6">
+            <div className="text-lg font-semibold text-gray-800 mb-4">
+                {dateFormatter(billings.date)}
+            </div>
+
+            {billings.products.length > 0 ? (
+                <div className="space-y-4 mb-4">
+                    {billings.products.map((product, i) => (
                         <CheckoutCard key={i} product={product} editable={false} />
-                    )
-                })
-            }
-            <div>Discount : {billings.discount}</div>
-            <div>Total : {total}</div>
+                    ))}
+                </div>
+            ) : (
+                <div className="text-gray-500">No products available.</div>
+            )}
+
+            <div className="flex justify-between text-gray-800 mt-4 border-t pt-4 border-gray-200">
+                <span className="font-medium">Discount:</span>
+                <span className="font-semibold">{billings.discount ? `$${billings.discount.toFixed(2)}` : 'N/A'}</span>
+            </div>
+
+            <div className="flex justify-between text-gray-800 mt-2">
+                <span className="font-medium">Total:</span>
+                <span className="font-semibold text-lg">${(total - billings.discount).toFixed(2)}</span>
+            </div>
         </div>
+
     )
 }
 
